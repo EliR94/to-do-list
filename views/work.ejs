@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    
+    <!-- my stylesheet -->
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body id="work">
+    <!-- header -->
+    <%- include("partials/nav.ejs") %>
+
+    <!-- to do list -->
+    <div class="container" id="list">
+    <h1>Work To Do:</h1>
+
+    <% if (locals.toDoWork.length > 0) {%>
+        <ul class="list-group toDoList">
+            <% for (var i=0; i<toDoWork.length; i++) { %>
+                <li class="list-group-item">
+                        <input 
+                        class="form-check-input me-1" 
+                        id="workCheckboxNo<%= [i] %>"
+                        type="checkbox"
+                        name="workCheckbox" 
+                        value="workCheckboxNo<%= [i] %>" 
+                        aria-label="...">
+                        <p id="workListItemNo<%= [i] %>"><%= toDoWork[i] %></p>
+                  </li>
+            <% } %>
+            <li class="list-group-item">
+                <form action="/work" method="POST">
+                    <input 
+                    type="text" 
+                    name="listWork" 
+                    placeholder="new item" 
+                    required/>
+                    <button type="submit" name="listPersonalButton">⏎</button>
+                </form>
+            </li>
+        </ul>
+    <%} else {%>
+        <h2>You've got nothing to do!</h2>
+        <ul class="list-group toDoList">
+            <li class="list-group-item">
+                <form action="/work" method="POST">
+                    <input 
+                    type="text" 
+                    name="listWork" 
+                    placeholder="add a new item" 
+                    required/>
+                    <button type="submit" name="listPersonalButton">⏎</button>
+                </form>                
+            </li>
+        </ul>
+    <% } %>
+</div>
+
+<!-- footer -->
+<%- include("partials/footer.ejs") %>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</body>
+</html>
